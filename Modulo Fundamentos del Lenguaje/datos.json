@@ -1,0 +1,6 @@
+[
+  {"id": 1, "tipo": "usuario", "nombre": "Ana", "edad": 28},
+  {"id": 2, "tipo": "admin", "nombre": "Carlos", "departamento": "TI"},
+  {"id": 3, "tipo": "bot", "nombre": "LimpiadorBot"},
+  {"id": 4, "tipo": "usuario", "nombre": "Beto", "edad": "veinte"}
+]
