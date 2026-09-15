@@ -1,0 +1,8 @@
+2026-09-15 17:06:43,786 - INFO - Leyendo archivo
+2026-09-15 17:06:43,786 - DEBUG - Fila procesada: Teclado
+2026-09-15 17:06:43,786 - DEBUG - Fila procesada: Raton
+2026-09-15 17:06:43,786 - WARNING - Una fila ha sido ignorada: {'fecha': 'basura', 'producto': None, 'cantidad': None, 'precio': None}. Razón: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
+2026-09-15 17:06:43,786 - DEBUG - Fila procesada: Monitor
+2026-09-15 17:06:43,786 - INFO - Lectura de CSV finalizado con éxito.
+2026-09-15 17:06:43,786 - INFO - Guardando métricas en metricas.json
+2026-09-15 17:06:43,786 - INFO - Exportación completa
