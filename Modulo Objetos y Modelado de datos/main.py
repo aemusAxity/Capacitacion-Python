@@ -2,8 +2,27 @@ import json
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime
+from typing import Literal, Protocol, TypedDict
 
 from pydantic import BaseModel, Field, ValidationError
+
+# 0. Typedict y Protocol
+
+
+# TypeDict programar sin errores tipográficos
+class DatosOrden(TypedDict):
+    producto: str
+    cantidad: int | str  # Union: Puede venir como entero o como string
+    precio_unitario: float
+    cliente: str
+
+
+# Protocol definimos un contrato.
+# Cualquier objeto que tenga un método '.total' se considerará un "Calculable".
+class Calculable(Protocol):
+    @property
+    def total(self) -> float: ...
+
 
 # 1. Modelo Pydantic de validacion
 
@@ -13,6 +32,9 @@ class OrderIn(BaseModel):
     cantidad: int = Field(..., gt=0, description="Debe ser mayor a 0")
     precio_unitario: float = Field(..., ge=0, description="No puede ser negativo")
     cliente: str
+    estado: Literal["PENDIENTE", "PAGADO"] = (
+        "PENDIENTE"  # Literal el estado solo puede ser una de esas dos
+    )
 
 
 class OrderOut(BaseModel):
@@ -20,6 +42,7 @@ class OrderOut(BaseModel):
     producto: str
     total: float
     fecha: datetime
+    estado: str
 
 
 # 2. Entidad de negocio (dataclass)
@@ -31,18 +54,20 @@ class Order:
     cantidad: int
     precio_unitario: float
     cliente: str
+    estado: Literal["PENDIENTE", "PAGADO"]
 
     id_orden: str = field(default_factory=lambda: str(uuid.uuid4())[:8])
     fecha: datetime = field(default_factory=datetime.now)
 
     @property
-    def total(self) -> float:
+    def total(self) -> float:  # Devuelve un float
         return self.cantidad * self.precio_unitario
 
-    def __str__(self):
+    def __str__(self) -> str:  # Devuelve un string
         return f"Orden [{self.id_orden}] - {self.producto} x{self.cantidad} (${self.total})"
 
-    def __eq__(self, otra_orden):
+    # Comparamos contra Any, porque podríamos intentar compararlo con un int u otro objeto por error
+    def __eq__(self, otra_orden: object) -> bool:  # Devuelve un booleano
         if not isinstance(otra_orden, Order):
             return False
         return (
@@ -50,48 +75,63 @@ class Order:
         )
 
 
-# 3. Lectura de JSON
+# 3. Funciones auxuliares
+# Se usa el TypedDict 'DatosOrden'
+def leer_archivo_json(ruta_archivo: str) -> DatosOrden:
+    with open(ruta_archivo, "r", encoding="utf-8") as archivo:
+        datos: DatosOrden = json.load(archivo)
+        return datos
+
+
+# Se usa Protocol 'Calculable'
+def imprimir_impuestos(objeto: Calculable) -> None:
+    impuesto = objeto.total * 0.16
+    print(f"IVA (16%): ${impuesto:.2f}")
+
+
+def procesar_orden(datos: DatosOrden) -> OrderOut:
+    datos_limpios = OrderIn(**datos)  # type: ignore[arg-type]
+    orden_interna = Order(**datos_limpios.model_dump())
+
+    # Llamamos a nuestra función de Protocolo
+    imprimir_impuestos(orden_interna)
+
+    ticket = OrderOut(
+        id_orden=orden_interna.id_orden,
+        producto=orden_interna.producto,
+        total=orden_interna.total,
+        fecha=orden_interna.fecha,
+        estado=orden_interna.estado,
+    )
+    return ticket
+
+
+# 4. Función principal
 if __name__ == "__main__":
-    # 1. Leyendo archivo JSON
-    print("PASO 1: Leyendo petición desde el archivo 'pedido.json'...")
+    arch_json = "pedidos.json"
+    print("PASO 1: Leyendo archivo 'pedidos.json'...")
     try:
-        with open("pedidos.json", "r", encoding="utf-8") as archivo:
-            # json.load convierte el texto del archivo a un diccionario de Python
-            peticion_json = json.load(archivo)
-            print(f"Datos crudos leídos: {peticion_json}\n")
+        datos_json = leer_archivo_json(arch_json)
+        print(f"Datos leídos: {datos_json}\n")
 
-        # 2. Validar con pydantic
-        print("PASO 2: Pydantic revisa y limpia los datos...")
-        datos_limpios = OrderIn(**peticion_json)
-        diccionario_limpio = datos_limpios.model_dump()
-        print("¡Datos aprobados!\n")
-
-        # 3. Creación de entidad dataclass
-        print("PASO 3: Construimos nuestra Entidad Interna...")
-        orden_interna = Order(**diccionario_limpio)
-        print(f"Visión interna: {orden_interna}\n")
-
-        # 4. Preparacion de la respuesta
-        print("PASO 4: Generando el ticket de salida (OrderOut)...")
-        ticket_salida = OrderOut(
-            id_orden=orden_interna.id_orden,
-            producto=orden_interna.producto,
-            total=orden_interna.total,
-            fecha=orden_interna.fecha,
+        print(
+            "PASO 2, 3 y 4: Validando (Pydantic), Procesando (Dataclass) y Generando Ticket..."
         )
+        ticket = procesar_orden(datos_json)
 
-        # Imprimimos el resultado como texto plano
-        print("Ticket generado:")
+        # Imprimimos el ticket de salida
+        print("\nTicket generado:")
         print("-" * 30)
-        print(f"ID del Pedido : {ticket_salida.id_orden}")
-        print(f"Producto      : {ticket_salida.producto}")
-        print(f"Total a Pagar : ${ticket_salida.total}")
-        print(f"Fecha         : {ticket_salida.fecha.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"ID del Pedido : {ticket.id_orden}")
+        print(f"Producto      : {ticket.producto}")
+        print(f"Total a Pagar : ${ticket.total}")
+        print(f"Estado        : {ticket.estado}")
+        print(f"Fecha         : {ticket.fecha.strftime('%Y-%m-%d %H:%M:%S')}")
         print("-" * 30)
 
     except FileNotFoundError:
         print(
-            "Error: No se encontró el archivo 'pedido.json'. Asegúrate de crearlo en esta carpeta."
+            "Error: No se encontró el archivo 'pedidos.json'. Asegúrate de crearlo en esta carpeta."
         )
     except json.JSONDecodeError:
         print("Error: El archivo 'pedido.json' no tiene un formato válido.")
