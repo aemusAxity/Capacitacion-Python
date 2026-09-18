@@ -1,0 +1,8 @@
+2026-09-18 15:41:19,905 - INFO - Solicitando datos a: https://httpbin.org/delay/5
+2026-09-18 15:41:23,546 - INFO - Solicitando datos a: https://httpbin.org/delay/5
+2026-09-18 15:41:27,137 - INFO - Solicitando datos a: https://httpbin.org/delay/5
+2026-09-18 15:41:30,681 - WARNING - Prueba 1 falló tras 3 intentos: RetryError[<Future at 0x225ba3d7320 state=finished raised ReadTimeout>]
+2026-09-18 15:41:30,682 - INFO - Solicitando datos a: https://httpbin.org/get
+2026-09-18 15:41:31,335 - INFO - JSON descargado con exito
+2026-09-18 15:41:31,335 - INFO - Descargando imagen por streaming en: imagen_httpbin.webp
+2026-09-18 15:41:31,981 - INFO - Descarga por streaming terminada con éxito.
