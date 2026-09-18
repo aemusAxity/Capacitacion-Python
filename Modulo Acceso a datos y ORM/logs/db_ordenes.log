@@ -1,0 +1,14 @@
+2026-09-18 17:48:36,667 - INFO - --- CREATE: Agregando usuarios y su orden ---
+2026-09-18 17:48:36,705 - INFO - Usuario guardado con ID: 1
+2026-09-18 17:48:36,705 - INFO - Usuario guardado con ID: 2
+2026-09-18 17:48:36,705 - INFO -
+--- READ: Buscando un usuario en la BD ---
+2026-09-18 17:48:36,705 - INFO - Encontrado: <User(id=1, nombre='Pedro Hernandez')>
+2026-09-18 17:48:36,708 - INFO -   -> Tiene la orden: <Order(id=1, estado='PENDIENTE')>
+2026-09-18 17:48:36,708 - INFO -       -> Producto: Laptop Gamer (x1)
+2026-09-18 17:48:36,708 - INFO -       -> Producto: Mouse (x2)
+2026-09-18 17:48:36,708 - INFO -
+--- UPDATE: Cambiando el estado de la orden ---
+2026-09-18 17:48:36,725 - INFO - Estado actualizado de la orden ID 1 a: PAGADO
+2026-09-18 17:48:36,731 - INFO -
+--- DELETE: Borrando al usuario 1 (y sus órdenes en cascada) ---
