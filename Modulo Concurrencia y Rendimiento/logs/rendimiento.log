@@ -1,0 +1,18 @@
+2026-09-22 13:50:46,699 - INFO - Iniciando descarga Síncrona (Una por una)...
+2026-09-22 13:50:48,471 - INFO - HTTP Request: GET https://httpbin.org/delay/1 "HTTP/1.1 200 OK"
+2026-09-22 13:50:49,584 - INFO - HTTP Request: GET https://httpbin.org/delay/1 "HTTP/1.1 200 OK"
+2026-09-22 13:50:50,714 - INFO - HTTP Request: GET https://httpbin.org/delay/1 "HTTP/1.1 200 OK"
+2026-09-22 13:50:51,947 - INFO - HTTP Request: GET https://httpbin.org/delay/1 "HTTP/1.1 200 OK"
+2026-09-22 13:50:53,075 - INFO - HTTP Request: GET https://httpbin.org/delay/1 "HTTP/1.1 200 OK"
+2026-09-22 13:50:53,075 - INFO - Tiempo exacto: 6.38 segundos
+
+2026-09-22 13:50:53,089 - INFO - Iniciando descarga Asíncrona (Concurrente)...
+2026-09-22 13:50:55,124 - INFO - HTTP Request: GET https://httpbin.org/delay/1 "HTTP/1.1 200 OK"
+2026-09-22 13:50:55,124 - INFO - HTTP Request: GET https://httpbin.org/delay/1 "HTTP/1.1 200 OK"
+2026-09-22 13:50:55,279 - INFO - HTTP Request: GET https://httpbin.org/delay/1 "HTTP/1.1 200 OK"
+2026-09-22 13:50:56,341 - INFO - HTTP Request: GET https://httpbin.org/delay/1 "HTTP/1.1 200 OK"
+2026-09-22 13:50:56,357 - INFO - HTTP Request: GET https://httpbin.org/delay/1 "HTTP/1.1 200 OK"
+2026-09-22 13:50:56,373 - INFO - Tiempo exacto: 3.29 segundos
+
+2026-09-22 13:50:56,374 - INFO - Iniciando cálculo CPU-bound con Multiprocessing...
+2026-09-22 13:50:58,333 - INFO - Tiempo exacto: 1.96 segundos
