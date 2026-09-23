@@ -1,0 +1,33 @@
+2026-09-23 16:29:37,912 - INFO - --- FASE 1: Entrenamiento ---
+2026-09-23 16:29:37,912 - INFO - 1. Cargando datos desde CSV...
+2026-09-23 16:29:37,912 - INFO -    Datos limpios: 7 filas disponibles.
+2026-09-23 16:29:37,915 - INFO - 2. Entrenando el cerebro matemático (Árbol de Decisión)...
+2026-09-23 16:29:37,926 - INFO -    Precisión del modelo en el test: 100.0%
+2026-09-23 16:29:37,926 - INFO - 3. Guardando el modelo entrenado en: data\modelo_arbol.pkl
+2026-09-23 16:29:37,926 - INFO -
+--- FASE 2: Inferencia (Predicción) ---
+2026-09-23 16:29:37,926 - INFO - Predicción para un cliente de 21 años ganando $18000: No comprará
+2026-09-23 16:29:37,926 - INFO -
+--- FASE 2: Inferencia (Predicción) ---
+2026-09-23 16:29:37,926 - INFO - Predicción para un cliente de 42 años ganando $85000: Si comprara
+2026-09-23 16:33:48,854 - INFO - El modelo ya estaba entrenado, saltando Fase 1.
+2026-09-23 16:33:48,854 - INFO -
+--- FASE 2: Inferencia (Predicción) ---
+2026-09-23 16:33:48,864 - INFO - Predicción para un cliente de 21 años ganando $18000: No comprará
+2026-09-23 16:33:48,864 - INFO -
+--- FASE 2: Inferencia (Predicción) ---
+2026-09-23 16:33:48,864 - INFO - Predicción para un cliente de 42 años ganando $85000: Si comprara
+2026-09-23 16:35:04,042 - INFO - El modelo ya estaba entrenado, saltando Fase 1.
+2026-09-23 16:35:04,042 - INFO -
+--- FASE 2: Inferencia (Predicción) ---
+2026-09-23 16:35:04,042 - INFO - Predicción para un cliente de 19 años ganando $18000: No comprará
+2026-09-23 16:35:04,042 - INFO -
+--- FASE 2: Inferencia (Predicción) ---
+2026-09-23 16:35:04,059 - INFO - Predicción para un cliente de 22 años ganando $85000: Si comprara
+2026-09-23 16:35:27,349 - INFO - El modelo ya estaba entrenado, saltando Fase 1.
+2026-09-23 16:35:27,349 - INFO -
+--- FASE 2: Inferencia (Predicción) ---
+2026-09-23 16:35:27,356 - INFO - Predicción para un cliente de 19 años ganando $1800: No comprará
+2026-09-23 16:35:27,356 - INFO -
+--- FASE 2: Inferencia (Predicción) ---
+2026-09-23 16:35:27,356 - INFO - Predicción para un cliente de 22 años ganando $850: No comprará
