@@ -1,0 +1,36 @@
+[project]
+name = "modulo-cli-automatizacion"
+version = "0.1.0"
+description = "Laboratorio del modulo CLI y automatizacion"
+authors = [
+    {name = "aemusAxity",email = "aerin.mex@axity.com"}
+]
+requires-python = ">=3.12"
+dependencies = [
+    "typer[all] (>=0.27.2,<0.28.0)",
+    "pydantic-settings (>=2.15.0,<3.0.0)",
+    "httpx2 (>=2.13.1,<3.0.0)"
+]
+
+# EL ENTRY POINT: Le decimos a Python que al instalar este paquete,
+# cree un comando global llamado 'orders-cli' que ejecute la función 'app' en 'app.cli'
+[project.scripts]
+orders-cli = "app.cli:app"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pre-commit (>=4.6.2,<5.0.0)",
+    "ruff (>=0.16.9,<0.17.0)",
+    "mypy (>=2.3.1,<3.0.0)",
+    "pytest (>=9.1.1,<10.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "app"}]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
