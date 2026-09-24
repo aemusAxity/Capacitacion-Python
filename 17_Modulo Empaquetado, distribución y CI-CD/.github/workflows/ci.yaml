@@ -1,0 +1,40 @@
+name: Pipeline CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  # 1 Calidad y Pruebas
+  qa_and_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: |
+          pip install poetry
+          poetry config virtualenvs.create false
+          poetry install
+
+      - name: Revisar estilo (Ruff)
+        run: ruff check .
+
+      - name: Revisar tipos (Mypy)
+        run: mypy app/
+
+      - name: Ejecutar pruebas
+        run: pytest -v
+
+  # 2: Construcción de la Imagen (Solo si pasan las pruebas)
+  build_docker:
+    needs: qa_and_tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Construir Docker
+        run: docker build -t mi-api-hexagonal:latest .
