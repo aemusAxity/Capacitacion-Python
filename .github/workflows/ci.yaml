@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./17_Modulo_CICD
+        working-directory: ./17_Modulo Empaquetado, distribución y CI-CD
     steps:
       - uses: actions/checkout@v4
 
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./17_Modulo_CICD
+        working-directory: ./17_Modulo Empaquetado, distribución y CI-CD
     steps:
       - uses: actions/checkout@v4
       - name: Construir Docker
