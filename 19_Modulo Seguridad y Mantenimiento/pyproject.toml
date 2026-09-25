@@ -1,0 +1,34 @@
+[project]
+name = "modulo-seguridad-mantenimiento"
+version = "0.1.0"
+description = "Laboratorio del modulo seguridad y mantenimiento"
+authors = [
+    {name = "aemusAxity",email = "aerin.mex@axity.com"}
+]
+
+requires-python = ">=3.12, <4.0"
+dependencies = [
+    "fastapi (>=0.141.1,<0.142.0)",
+    "uvicorn (>=0.54.0,<0.55.0)",
+    "pydantic-settings (>=2.15.0,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pre-commit (>=4.6.2,<5.0.0)",
+    "ruff (>=0.16.9,<0.17.0)",
+    "mypy (>=2.3.1,<3.0.0)",
+    "pytest (>=9.1.1,<10.0.0)",
+    "pip-audit (>=2.10.1,<3.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "app"}]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
