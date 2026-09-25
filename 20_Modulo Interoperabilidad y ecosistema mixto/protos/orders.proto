@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+// Contrato de como se veran los datos
+
+service OrderService {
+    rpc CreateOrder (OrderRequest) returns (OrderResponse);
+}
+
+// Definimos el formato exacto de los datos que enviamos
+message OrderRequest {
+    string id_orden = 1;
+    string cliente = 2;
+    float total = 3;
+}
+
+// Definimos el formato exacto de lo que respondemos
+message OrderResponse {
+    string mensaje = 1;
+    bool exito = 2;
+}
